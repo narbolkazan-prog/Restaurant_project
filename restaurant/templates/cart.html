@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>Your Cart 🛒</h1>
+
+    {% if cart_items %}
+
+        <div class="menu">
+
+        {% for item in cart_items %}
+
+            <div class="food-card">
+
+                <h2>{{ item[1] }}</h2>
+
+                <p>
+                    ${{ item[2] }} × {{ item[3] }}
+                    = ${{ item[2] * item[3] }}
+                </p>
+
+                <div>
+
+                    <a href="{{ url_for('decrease', food_id=item[0]) }}">
+                        <button>-</button>
+                    </a>
+
+                    <span>{{ item[3] }}</span>
+
+                    <a href="{{ url_for('increase', food_id=item[0]) }}">
+                        <button>+</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+        </div>
+
+        <h2>Total: ${{ total }}</h2>
+
+        <a href="{{ url_for('checkout') }}">
+            <button>Checkout</button>
+        </a>
+
+    {% else %}
+
+        <h2>Your cart is empty.</h2>
+
+    {% endif %}
+
+    <a href="/">
+        <button>Back to menu</button>
+    </a>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category }}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="top-bar">
+
+    <a href="{{ url_for('home') }}">
+        MENU
+    </a>
+
+    <a href="{{ url_for('cart') }}">
+        🛒 CART
+    </a>
+
+</div>
+
+
+<div class="menu-page">
+
+    <h1>{{ category }}</h1>
+
+    <div class="food-list">
+
+        {% for food in foods %}
+
+        <div class="food-card">
+
+            <img
+                src="{{ url_for('static', filename='images/' + food[1].lower().replace(' ', '_') + '.jpg') }}"
+                class="food-image"
+            >
+
+            <div class="food-info">
+
+                <h2>{{ food[1] }}</h2>
+
+                <p>{{ food[3] }}</p>
+
+                <p class="price">
+                    ${{ food[2] }}
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('add_to_cart', food_id=food[0]) }}"
+                class="add-button"
+                onclick="addToCart(event, this);">
+
+                + ADD TO CART
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="navigation">
+
+        {% if page > 1 %}
+
+            <a href="{{ url_for('menu_page', page=page-1) }}">
+                ← BACK
+            </a>
+
+        {% else %}
+
+            <a href="{{ url_for('home') }}">
+                ← MENU
+            </a>
+
+        {% endif %}
+
+
+        <span>
+            {{ page }} / {{ total_pages }}
+        </span>
+
+
+        {% if page < total_pages %}
+
+            <a href="{{ url_for('menu_page', page=page+1) }}">
+                NEXT →
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<script>
+
+function addToCart(event, button) {
+
+    event.preventDefault();
+
+    const url = button.href;
+
+    fetch(url)
+        .then(() => {
+
+            button.textContent = "✓ ADDED";
+            button.classList.add("added-button");
+
+            setTimeout(() => {
+
+                button.textContent = "+ ADD TO CART";
+                button.classList.remove("added-button");
+
+            }, 1500);
+
+        });
+
+}
+
+</script>
+
+</body>
+</html>

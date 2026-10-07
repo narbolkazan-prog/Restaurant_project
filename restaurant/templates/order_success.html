@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="success">
+
+        <h1>✓ Order placed!</h1>
+
+        <p>Thank you for your order.</p>
+
+        <h2>Order #{{ order_id }}</h2>
+
+        {% for item in items %}
+            <div class="order-item">
+                <span>
+                    {{ item[0] }} × {{ item[1] }}
+                </span>
+
+                <span>
+                    {{ item[2] }} ₸
+                </span>
+            </div>
+        {% endfor %}
+
+        <hr>
+
+        <h2>Total: {{ total }} ₸</h2>
+
+        <a href="/">
+            <button>Back to Menu</button>
+        </a>
+
+    </div>
+
+</body>
+</html>

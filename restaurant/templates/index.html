@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Restaurant Menu</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="top-bar">
+
+    <div></div>
+
+    <a href="{{ url_for('cart') }}" class="cart-button">
+        🛒 CART
+    </a>
+
+</div>
+
+
+<div class="main-menu">
+
+    <h1>MENU</h1>
+
+    <p>Welcome to our restaurant</p>
+
+    <a href="{{ url_for('menu_page', page=1) }}"
+       class="open-button">
+        OPEN
+    </a>
+
+</div>
+
+</body>
+</html>
